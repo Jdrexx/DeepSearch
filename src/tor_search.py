@@ -1,4 +1,5 @@
 import sys
+from urllib.parse import unquote
 import requests
 from bs4 import BeautifulSoup
 from rich.console import Console
@@ -30,10 +31,9 @@ class TorSearchEngine:
     def search_onion_ahmia(self, query):
         """Searches Ahmia.fi, which indexes .onion sites."""
         console.print(f"[bold blue]Searching .onion sites for:[/bold blue] {query}...")
-        url = f"https://ahmia.fi/search/?q={query}"
         results = []
         try:
-            response = self.session.get(url, timeout=20)
+            response = self.session.get("https://ahmia.fi/search/", params={"q": query}, timeout=20)
             response.raise_for_status()
             soup = BeautifulSoup(response.text, 'html.parser')
             
@@ -49,7 +49,7 @@ class TorSearchEngine:
                 
                 # Ahmia redirects: /search/redirect?search_result=...&redirect_url=http://onionlink.onion
                 if "redirect_url=" in url_path:
-                    url_path = url_path.split("redirect_url=")[1]
+                    url_path = unquote(url_path.split("redirect_url=")[1])
                 
                 results.append({
                     'title': title.strip(),
