@@ -1,71 +1,55 @@
 # Deep Search Toolkit
 
-A specialized Python toolkit for high-depth information retrieval and deep-web exploration. This project provides two primary interfaces for gathering information from the surface web and the dark web (.onion sites).
+A Python toolkit for information retrieval from the surface web and Tor hidden services (.onion sites). Provides two interfaces — one for standard web search via DuckDuckGo, one for dark web search routed through the Tor network.
 
-## 🚀 Features
+## Features
 
-- **Deep Extraction**: Goes beyond snippets by fetching and cleaning full-text content from top results.
-- **Surface Web Search**: Fetches up to 20 high-relevance results using DuckDuckGo.
-- **Dark Web Search**: Fully routed through the Tor network to find and extract data from `.onion` sites.
-- **Interactive CLI**: Rich terminal interface with clickable links, status panels, and a search refresh feature.
-- **Privacy First**: Local execution with proxy support for sensitive research.
+- Surface web search: up to 20 results per query via DuckDuckGo, with auto-extraction of full-text content from top results
+- Dark web search: queries routed through Tor SOCKS5 proxy to the Ahmia onion index
+- Interactive CLI with clickable links, status panels, and search refresh
+- Privacy-first: all execution is local with optional proxy support
+- Cross-platform (removed Windows-only batch dependency — runs on Linux, macOS, and Windows)
 
----
+## Components
 
-## 🛠️ Components
+### Surface Search (src/main.py)
+Standard web research. Fetches 20 results per query, deep-extracts the top 3 for terminal reading.
 
-### 1. Surface Deep Search (`src/main.py`)
-Used for standard web research where you need broad results and instant content previews.
-- **Engine**: DuckDuckGo.
-- **Capacity**: 20 results per query.
-- **Auto-Extract**: Deep-cleans the top 3 results for immediate reading in the terminal.
+### Tor Search (src/tor_search.py)
+Hidden service research. All traffic through SOCKS5 (127.0.0.1:9050) with built-in Tor connection validation.
 
-### 2. TOR Deep Search (`src/tor_search.py`)
-Used for researching hidden services and `.onion` domains safely.
-- **Engine**: Ahmia (Onion Index).
-- **Network**: All traffic is proxied through SOCKS5 (127.0.0.1:9050).
-- **Safety**: Includes a built-in Tor connection validator.
+## Prerequisites
 
----
+- Python 3.11+
+- Tor Browser (required for Tor Search — must be connected before searching .onion sites)
 
-## 📋 Prerequisites
+## Quick Start
 
-1. **Python 3.11+**
-2. **Tor Browser** (Required only for the TOR Search feature. It must be open and connected to act as the network gateway.)
+```bash
+# Surface search
+python src/main.py
 
----
+# Tor search (Tor Browser must be running)
+python src/tor_search.py
+```
 
-## 🏃 Launching the Programs
+Windows users can double-click `launch.bat` (surface search) or `launch_tor.bat` (Tor search — Tor Browser must be open first).
 
-For convenience, use the provided Windows batch files:
+## Interactive Commands
 
-### For Surface Web Search:
-- Double-click **`launch.bat`**
+| Key | Action |
+|-----|--------|
+| `r` | Refresh last search for updated results |
+| `exit` / `quit` | Close the program |
+| Ctrl+Click | Open a URL in your browser |
 
-### For Dark Web Search:
-1. Open the **Tor Browser**.
-2. Double-click **`launch_tor.bat`**
+## Project Structure
 
----
-
-## ⌨️ Command Shortcuts
-
-Inside the interactive prompt:
-- `r`: **Refresh** the last search query to check for updated results.
-- `exit` or `quit`: Safely close the program.
-- **Ctrl + Click**: Open any blue URL directly in your default web browser.
-
----
-
-## 📁 Project Structure
-
-```text
+```
 deep_search/
-├── launch.bat          # Surface search launcher
-├── launch_tor.bat      # Tor search launcher
 ├── src/
-│   ├── main.py         # Standard search CLI
-│   ├── search.py       # Core surface search logic
-│   └── tor_search.py   # Core onion search logic
-└── venv/               # Isolated dependencies
+│   ├── main.py        # Standard search CLI
+│   ├── search.py      # Core surface search logic
+│   └── tor_search.py  # Core onion search logic
+└── venv/              # Isolated dependencies
 ```
