@@ -13,9 +13,11 @@ A Python toolkit for information retrieval from the surface web and Tor hidden s
 ## Components
 
 ### Surface Search (src/main.py)
+
 Standard web research. Fetches 20 results per query, deep-extracts the top 3 for terminal reading.
 
 ### Tor Search (src/tor_search.py)
+
 Hidden service research. All traffic through SOCKS5 (127.0.0.1:9050) with built-in Tor connection validation.
 
 ## Prerequisites
@@ -37,11 +39,11 @@ Windows users can double-click `launch.bat` (surface search) or `launch_tor.bat`
 
 ## Interactive Commands
 
-| Key | Action |
-|-----|--------|
-| `r` | Refresh last search for updated results |
-| `exit` / `quit` | Close the program |
-| Ctrl+Click | Open a URL in your browser |
+| Key             | Action                                  |
+| --------------- | --------------------------------------- |
+| `r`             | Refresh last search for updated results |
+| `exit` / `quit` | Close the program                       |
+| Ctrl+Click      | Open a URL in your browser              |
 
 ## Project Structure
 
